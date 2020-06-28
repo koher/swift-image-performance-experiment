@@ -11,16 +11,23 @@ import SwiftImage
 
 struct ContentView: View {
     @State var showsImage: Bool = false
+    @State var usesCoreImage: Bool = false
     
     @ViewBuilder
     var body: some View {
         if showsImage {
-            Image(uiImage: loadImage())
+            Image(uiImage: loadImage(usingCoreImage: usesCoreImage))
                 .resizable()
                 .scaledToFit()
         } else {
-            Button("Show Image") {
-                self.showsImage = true
+            VStack {
+                Toggle(isOn: $usesCoreImage) {
+                    Text("Uses Core Image")
+                }
+                .padding()
+                Button("Show Image") {
+                    self.showsImage = true
+                }
             }
         }
     }
